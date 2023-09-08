@@ -1,0 +1,308 @@
+package linkedList;
+import java.util.*;
+
+import linkedList.S_Linked_List.Node;
+
+public class D_Linked_List {
+	
+	static Node head = null;
+	static int size = 0;
+	
+	static class Node
+	{
+		Node previous;
+		int data;
+		Node next;
+		
+		Node(int data)
+		{
+			this.data = data;
+		}
+	}
+	
+//	Insert the Begin
+	static D_Linked_List insertAtbegin(D_Linked_List list, int data) {
+		
+		Node newnode = new Node(data);
+		
+		if(list.head == null)
+		{
+			head = newnode;
+			newnode.previous = newnode.next = null;
+		}
+		else
+		{
+			newnode.next = head;
+			head.previous = newnode;
+			head = newnode;
+			newnode.previous = null;
+		}
+		
+		size++;
+		return list;
+	}
+	
+//	Insert At End
+	static D_Linked_List insertAtend(D_Linked_List list, int data) {
+		
+		Node newnode = new Node(data);
+		
+		if(list.head == null)
+		{
+			head = newnode;
+			newnode.previous = newnode.next = null;
+		}
+		else
+		{
+			Node temp = list.head;
+			
+			while(temp.next != null)
+			{
+				temp = temp.next;
+			}
+			newnode.previous = temp;
+			newnode.next = temp.next;
+			temp.next = newnode; 
+		}
+		
+		size++;
+		return list;
+	}
+	
+//	Insert At Position
+	static D_Linked_List insertAtpos(D_Linked_List list, int data, int pos) {
+		
+		if(pos < 1 || pos > size+1)
+		{
+			System.out.println("Invalid Location");
+		}
+		else if(pos == 1)
+		{
+			list = insertAtbegin(list,data);
+		}
+		else
+		{
+			Node newnode = new Node(data);
+			
+			Node temp = list.head;
+			Node temp1 = null;
+			
+			for(int i=2;i<pos;i++)
+			{
+				temp = temp.next;
+			}
+			temp1 = temp.next;
+			
+			temp.next = newnode;
+			if(temp1 != null)
+			{
+				temp1.previous = newnode;
+			}
+			newnode.previous = temp;
+			newnode.next = temp1;
+		}
+		
+		size++;
+		return list;
+	}
+	
+//	Delete At Begin
+	static D_Linked_List deleteAtbeg(D_Linked_List list) {
+		
+		if(list.head == null)
+		{
+			System.out.println("List is Empty");
+		}
+		else
+		{
+			Node temp = list.head;
+			System.out.println("+++++++++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+head.data);
+			System.out.println("+++++++++++++++++++++++++++++++++++");
+			head = head.next;
+			if(head != null)
+				head.previous = null;
+		}
+		
+		size--;
+		return list;
+	}
+	
+//	Delete At End
+	static D_Linked_List deleteAtend(D_Linked_List list) {
+		
+		if(list.head == null)
+		{
+			System.out.println("List is Empty");
+		}
+		else
+		{
+			Node ptr = list.head;
+			Node ptr1 = null;
+			while(ptr.next != null)
+			{
+				ptr1 = ptr;
+				ptr = ptr.next;
+			}
+			System.out.println("+++++++++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+ptr.data);
+			System.out.println("+++++++++++++++++++++++++++++++++++");
+			
+			
+			if(size == 1)
+			{
+				list.head = null;
+			}
+			else
+			{
+				ptr1.next = ptr.next;
+			}
+		}
+		
+		size--;
+		return list;
+	}
+	
+//	Delete At Position
+	static D_Linked_List deleteAtpos(D_Linked_List list, int pos) {
+		
+		if(pos < 1 || pos > size)
+		{
+			System.out.println("Invalid Location");
+		}
+		else if(head == null)
+		{
+			System.out.println("List is Empty");
+		}
+		else if(pos == 1)
+		{
+			list = list.deleteAtbeg(list);
+		}
+		else
+		{
+			Node ptr = list.head;
+			Node ptr1 = null;
+			
+			for(int i=1;i<pos;i++)
+			{
+				ptr1 = ptr;
+				ptr = ptr.next;
+			}
+			System.out.println("+++++++++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+ptr.data);
+			System.out.println("+++++++++++++++++++++++++++++++++++");
+			if(ptr.next == null)
+			{
+				ptr1.next = ptr.next;
+			}
+			else
+			{
+				Node ptr2 = ptr.next;
+				ptr1.next = ptr2;
+				ptr2.previous = ptr1;
+			}
+		}
+		
+		size--;
+		return list;
+	}
+	
+//		Print the List
+	static void printList(D_Linked_List list) {
+		
+Node n = list.head;
+		
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
+		System.out.print("  ");
+		while(n != null)
+		{
+			System.out.print(n.data+"->");
+			n = n.next;
+		}
+		System.out.println("NULL  ");
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
+		
+	}
+	
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		D_Linked_List list = new D_Linked_List();
+		
+		char ch = 'Y';
+		do {
+			
+			System.out.println("1) Instert At Begin  2) Insert At End  3) Insert At Specific Position\n4) Delete At Begin   5) Delete At End   6) Delete At Specific Position\n7) Display The List  8) Size of the List.");
+			System.out.print("Enter the choice : ");
+			int c = sc.nextInt();
+			int data,pos;
+			switch(c)
+			{
+				case 1:
+				{
+					System.out.print("Enter the data : ");
+					data = sc.nextInt();
+					list = insertAtbegin(list,data);
+					System.out.println("Inserted Successfully");
+					break;
+				}
+				case 2:
+				{
+					System.out.print("Enter the data : ");
+					data = sc.nextInt();
+					list = insertAtend(list,data);
+					System.out.println("Inserted Successfully");
+					break;
+				}
+				case 3:
+				{
+					System.out.print("Enter the data : ");
+					data = sc.nextInt();
+					System.out.print("Enter the Position : ");
+					pos = sc.nextInt();
+					
+					list = insertAtpos(list,data,pos);
+					break;
+				}
+				case 4:
+				{
+					list = deleteAtbeg(list);
+					break;
+				}
+				case 5:
+				{
+					list = deleteAtend(list);
+					break;
+				}
+				case 6:
+				{
+					System.out.print("Enter the Position to Delete : ");
+					pos = sc.nextInt();
+					list = deleteAtpos(list,pos);
+					break;
+				}
+				case 7 : 
+				{
+					printList(list);
+					break;
+				}
+				case 8:
+				{
+					System.out.println("Size of the List is "+size);
+					break;
+				}
+				default:
+					System.out.println("Enter the Correct Opition.");
+			}
+			System.out.print("Do You Want To Continue \"Y\" or\"N\" : ");
+			ch = sc.next().charAt(0);
+			
+		}while(ch == 'Y' || ch == 'y');
+		sc.close();
+		System.out.println("           \" THANK YOU \"           ");
+	}
+
+	
+}
