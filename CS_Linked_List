@@ -1,0 +1,319 @@
+package linkedList;
+import java.util.*;
+
+public class CS_Linked_List {
+
+	static Node head = null;
+	static int size = 0;
+	
+	static class Node
+	{
+		int data;
+		Node next;
+		
+		Node(int data)
+		{
+			this.data = data;
+			this.next = next;
+		}
+	}
+	//Insert At Begin
+	static CS_Linked_List insertAtbegin(CS_Linked_List list,int data)
+	{
+		Node newnode = new Node(data);
+		if(list.head == null)
+		{
+			head = newnode;
+			newnode.next = head;
+		}
+		else
+		{
+			Node temp = list.head;
+			
+			while(temp.next != head)
+			{
+				temp = temp.next;
+			}
+			newnode.next = temp.next;
+			temp.next = newnode;
+			head = newnode;
+		}
+		
+		size++;
+		return list;
+	}
+	//Insert At End
+	static CS_Linked_List insertAtend(CS_Linked_List list,int data)
+	{
+		Node newnode = new Node(data);
+		if(list.head == null)
+		{
+			head = newnode;
+			newnode.next = head;
+		}
+		else
+		{
+			Node temp = list.head;
+			
+			while(temp.next != head)
+			{
+				temp = temp.next;
+			}
+			temp.next = newnode;
+			newnode.next = head;
+		}
+		size++;
+		return list;
+	}
+	
+	//Insert At Position
+	static CS_Linked_List insertAtpos(CS_Linked_List list, int data, int pos) {
+		
+		if(pos < 1 || pos > size+1)
+		{
+			System.out.println("Invalid Position");
+		}
+		else
+		{
+			if(pos == 1)
+			{
+				list = insertAtbegin(list,data);
+			}
+			else
+			{
+				Node newnode = new Node(data);
+				Node temp = list.head;
+				
+				for(int i=2;i<pos;i++)
+				{
+					temp = temp.next;
+				}
+				newnode.next = temp.next;
+				temp.next = newnode;
+			}
+		}
+		
+		size++;
+		return list;
+	}
+	//Delete At Begin
+	static CS_Linked_List deleteAtbeg(CS_Linked_List list) {
+		
+		if(list.head == null)
+		{
+			System.out.println("List is Empty");
+		}
+		else if(size == 1)
+		{
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+head.data);
+			System.out.println("+++++++++++++++++++++++++++++");
+			list.head = null;
+		}
+		else
+		{
+			Node temp = list.head;
+			while(temp.next != head)
+			{
+				temp = temp.next;
+			}
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+head.data);
+			System.out.println("+++++++++++++++++++++++++++++");
+			temp.next = head.next;
+			head = head.next;
+		}
+		
+		size--;
+		return list;
+	}
+	//Delete At End
+	static CS_Linked_List deleteAtend(CS_Linked_List list) {
+		
+		if(list.head == null)
+		{
+			System.out.println("List is Empty");
+		}
+		else if(size == 1)
+		{
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+head.data);
+			System.out.println("+++++++++++++++++++++++++++++");
+			list.head = null;
+		}
+		else
+		{
+			Node ptr = list.head;
+			Node ptr1 = null;
+			
+			while(ptr.next != head)
+			{
+				ptr1 = ptr;
+				ptr = ptr.next;
+			}
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("Deleted Element is "+ptr.data);
+			System.out.println("+++++++++++++++++++++++++++++");
+			
+			ptr1.next = ptr.next;
+		}
+		
+		size--;
+		return list;
+	}
+	//Delete At Position
+	static CS_Linked_List deleteAtpos(CS_Linked_List list, int pos) {
+		
+		if(pos < 1 || pos > size)
+		{
+			System.out.println("Invalid Location");
+		}
+		else
+		{
+			if(head == null)
+			{
+				System.out.println("List is Empty");
+			}
+			else if(pos == 1 && size == 1)
+			{
+				System.out.println("+++++++++++++++++++++++++++++");
+				System.out.println("Deleted Element is "+head.data);
+				System.out.println("+++++++++++++++++++++++++++++");
+				list.head = null;
+			}
+			else
+			{
+				if(pos == 1)
+				{
+					list = deleteAtbeg(list);
+				}
+				else
+				{
+					Node ptr = list.head;
+					Node ptr1 = null;
+					for(int i=1;i<pos;i++)
+					{
+						ptr1 = ptr;
+						ptr = ptr.next;
+					}
+					System.out.println("+++++++++++++++++++++++++++++");
+					System.out.println("Deleted Element is "+ptr.data);
+					System.out.println("+++++++++++++++++++++++++++++");
+					
+					ptr1.next = ptr.next;
+				}
+			}
+		}
+		size--;
+		return list;
+	} 
+	
+	//Print the List
+	static void printList(CS_Linked_List list)
+	{
+		Node n = list.head;
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
+		System.out.print("  ");
+		if(head == null)
+		{
+			System.out.print("NULL");
+		}
+		else
+		{
+			do
+			{
+				System.out.print(n.data+" ");
+				n = n.next;
+			}while(n != head);
+		}
+		System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++");
+	}
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		CS_Linked_List list = new CS_Linked_List();
+		
+		
+		char ch;
+		
+		do
+		{
+			System.out.println("1) Instert At Begin  2) Insert At End  3) Insert At Specific Position\n4) Delete At Begin   5) Delete At End   6) Delete At Specific Position\n7) Display The List  8) Size of the List.");
+			System.out.print("Enter the choice : ");
+			int c = sc.nextInt();
+			int data,pos;
+			switch(c)
+			{
+				case 1:
+				{
+					System.out.print("Enter the data : ");
+					data = sc.nextInt();
+					list = insertAtbegin(list,data);
+					System.out.println("Inserted Successfully");
+					break;
+				}
+				case 2:
+				{
+					System.out.print("Enter the data : ");
+					data = sc.nextInt();
+					list = insertAtend(list,data);
+					System.out.println("Inserted Successfully");
+					break;
+				}
+				case 3:
+				{
+					System.out.print("Enter the data : ");
+					data = sc.nextInt();
+					System.out.print("Enter the Position : ");
+					pos = sc.nextInt();
+					
+					list = insertAtpos(list,data,pos);
+					break;
+				}
+				case 4:
+				{
+					list = deleteAtbeg(list);
+					break;
+				}
+				case 5:
+				{
+					list = deleteAtend(list);
+					break;
+				}
+				case 6:
+				{
+					System.out.print("Enter the Position to Delete : ");
+					pos = sc.nextInt();
+					list = deleteAtpos(list,pos);
+					break;
+				}
+				case 7 : 
+				{
+					printList(list);
+					break;
+				}
+				case 8:
+				{
+					System.out.println("Size of the List is "+size);
+					break;
+				}
+				default:
+					System.out.println("Enter the Correct Opition.");
+			}
+			
+			
+			System.out.println("Do you Want to continue \"Y \" or \"N\"");
+			ch = sc.next().charAt(0);
+		}while(ch == 'Y' || ch == 'y');
+		
+		
+
+	}
+	
+	
+	
+	
+
+}
