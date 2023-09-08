@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author GANESH
+ *
+ */
+module String {
+}
