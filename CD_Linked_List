@@ -1,0 +1,23 @@
+package linkedList;
+import java.util.*;
+
+
+public class CD_Linked_List {
+	
+	static Node head = null;
+	static int size = 0;
+	
+	static class Node
+	{
+		int data;
+		Node(int data)
+		{
+			this.data = data; 
+		}
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+	}
+
+}
